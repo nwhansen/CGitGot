@@ -10,6 +10,13 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cJSON.c" />
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cJSON.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3BDFF548-239E-461F-AEA0-BDE1D9574A43}</ProjectGuid>
     <RootNamespace>FakeGot</RootNamespace>
@@ -44,9 +51,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\opt;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\libgit2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\opt\Debug;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\libgit2\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>git2.lib;opt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -56,16 +67,17 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\opt;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\libgit2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\opt\Debug;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\FakeGot\libgit2\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>git2.lib;opt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FakeGot", "FakeGot\FakeGot.vcxproj", "{3BDFF548-239E-461F-AEA0-BDE1D9574A43}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA503114-79E2-3F99-ABA0-5255E5D8F749} = {AA503114-79E2-3F99-ABA0-5255E5D8F749}
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0} = {1562C95C-773A-4952-A1F1-60E97B47B8B0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "git2", "libgit2\build\git2.vcxproj", "{AA503114-79E2-3F99-ABA0-5255E5D8F749}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opt", "opt\opt.vcxproj", "{1562C95C-773A-4952-A1F1-60E97B47B8B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,14 @@ Global
 		{AA503114-79E2-3F99-ABA0-5255E5D8F749}.Release|Win32.Build.0 = Release|Win32
 		{AA503114-79E2-3F99-ABA0-5255E5D8F749}.RelWithDebInfo|Win32.ActiveCfg = RelWithDebInfo|Win32
 		{AA503114-79E2-3F99-ABA0-5255E5D8F749}.RelWithDebInfo|Win32.Build.0 = RelWithDebInfo|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.Debug|Win32.Build.0 = Debug|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.MinSizeRel|Win32.ActiveCfg = Release|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.MinSizeRel|Win32.Build.0 = Release|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.Release|Win32.ActiveCfg = Release|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.Release|Win32.Build.0 = Release|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.RelWithDebInfo|Win32.ActiveCfg = Release|Win32
+		{1562C95C-773A-4952-A1F1-60E97B47B8B0}.RelWithDebInfo|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
