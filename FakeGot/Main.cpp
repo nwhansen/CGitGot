@@ -63,10 +63,13 @@ auto getConfigData(char* documentPath) -> cJSON* {
 	return cJSON_Parse(configData);
 }
 
-auto main(int argc, const char* argv[]) -> int {
+auto main(int argc, char* argv[]) -> int {
 	//Check the arguments
 	int test = 0;
 	optreg(&test, OPT_INT, 't', "Testing");
+	opt(&argc, &argv);
+	
+	opt_free();
 	if (test != 0) {
 		std::cout << "Hey you passed a param " << test << std::endl;
 	}

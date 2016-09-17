@@ -32,6 +32,12 @@
 #ifndef _OPT_H
 #define	_OPT_H 	/* Signal that this header file has been included */
 
+#ifdef OPT_EXPORTS
+#define OPTLIBRARY_API __declspec(dllexport) 
+#else
+#define OPTLIBRARY_API __declspec(dllimport) 
+#endif
+
 /***
  * Enable linking with C++
  ***/
@@ -42,7 +48,7 @@ extern "C"
 
 
 
-typedef enum    {
+OPTLIBRARY_API typedef enum    {
     OPT_NUL,
     OPT_INT,        OPT_SHORT,      OPT_LONG,       OPT_CHAR,
     OPT_UINT,       OPT_USHORT,     OPT_ULONG,      OPT_UCHAR,
@@ -93,7 +99,7 @@ typedef enum {
  * calling hooks, etc. 
  */
 
-extern void opt(int *,char ***);
+OPTLIBRARY_API extern void opt(int *, char ***);
 
 
 /* But before opt() can be called, variables/hooks/etc must be
@@ -114,31 +120,31 @@ extern void opt(int *,char ***);
  */
 
 /*    ARGUMENT LIST: &var    OPT_INT   'c'   "name"   "Brief Description" */
-extern int optrega(  void *, opt_TYPE, char,  char *, char * );
-extern int optreg(   void *, opt_TYPE, char,          char * );
-extern int optregc(  void *, opt_TYPE, char                  );
-extern int optregcb( void *, opt_TYPE, char,          char * );
-extern int optregs(  void *, opt_TYPE,        char *         );
-extern int optregsb( void *, opt_TYPE,        char *, char * );
-extern int optregp(  void *, opt_TYPE,        char *, char * );
-extern int optregf(  void *, opt_TYPE, char,  char *, char * );
+OPTLIBRARY_API extern int optrega(  void *, opt_TYPE, char,  char *, char * );
+OPTLIBRARY_API extern int optreg(   void *, opt_TYPE, char,          char * );
+OPTLIBRARY_API extern int optregc(  void *, opt_TYPE, char                  );
+OPTLIBRARY_API extern int optregcb( void *, opt_TYPE, char,          char * );
+OPTLIBRARY_API extern int optregs(  void *, opt_TYPE,        char *         );
+OPTLIBRARY_API extern int optregsb( void *, opt_TYPE,        char *, char * );
+OPTLIBRARY_API extern int optregp(  void *, opt_TYPE,        char *, char * );
+OPTLIBRARY_API extern int optregf(  void *, opt_TYPE, char,  char *, char * );
 /*    ARGUMENT LIST: &var    OPT_INT   'c'   "name"   "Brief Description" */
 
 /*    ARGUMENTS:    "name"  hook      "Descript" */
-extern int optexec( char *, OPT_HOOK, char * );
+OPTLIBRARY_API extern int optexec(char *, OPT_HOOK, char *);
 
 
   /* ARRAY OPTIONS, same as scalar except first argument points to
    * the size of the array. Not currently available for positionals */
   /*  ARGUMENT LIST:      &nelts, &array, OPT_INT, 'c'   "name"  "Descript" */
-extern int optrega_array(  int *, void *, opt_TYPE, char, char *, char *);
-extern int optreg_array(   int *, void *, opt_TYPE, char,         char *);
-extern int optregc_array(  int *, void *, opt_TYPE, char                );
-extern int optregcb_array( int *, void *, opt_TYPE, char,         char *);
-extern int optregs_array(  int *, void *, opt_TYPE,       char *        );
-extern int optregsb_array( int *, void *, opt_TYPE,       char *, char *);
-extern int optregp_array(  int *, void *, opt_TYPE,       char *, char *);
-extern int optregf_array(  int *, void *, opt_TYPE, char, char *, char *);
+OPTLIBRARY_API extern int optrega_array(  int *, void *, opt_TYPE, char, char *, char *);
+OPTLIBRARY_API extern int optreg_array(   int *, void *, opt_TYPE, char,         char *);
+OPTLIBRARY_API extern int optregc_array(  int *, void *, opt_TYPE, char                );
+OPTLIBRARY_API extern int optregcb_array( int *, void *, opt_TYPE, char,         char *);
+OPTLIBRARY_API extern int optregs_array(  int *, void *, opt_TYPE,       char *        );
+OPTLIBRARY_API extern int optregsb_array( int *, void *, opt_TYPE,       char *, char *);
+OPTLIBRARY_API extern int optregp_array(  int *, void *, opt_TYPE,       char *, char *);
+OPTLIBRARY_API extern int optregf_array(  int *, void *, opt_TYPE, char, char *, char *);
   
 /* Using the following routines, one can specify features (such as
  * char, longname, descript) of the variable that were left out in the
@@ -146,21 +152,21 @@ extern int optregf_array(  int *, void *, opt_TYPE, char, char *, char *);
  * exec) that the registration routines do not permit.
  */
 /* These functions use &var to identify which option */
-extern void optchar(     void *,char);
-extern void optlongname( void *,char *);
-extern void optmode(     void *,opt_MODE);
-extern void optdescript( void *,char *);
-extern void opthelp(     void *,char *);
-extern void opthook(     void *,OPT_HOOK);
-extern void optarraydelim(void *, char);
+OPTLIBRARY_API extern void optchar(     void *,char);
+OPTLIBRARY_API extern void optlongname( void *,char *);
+OPTLIBRARY_API extern void optmode(     void *,opt_MODE);
+OPTLIBRARY_API extern void optdescript( void *,char *);
+OPTLIBRARY_API extern void opthelp(     void *,char *);
+OPTLIBRARY_API extern void opthook(     void *,OPT_HOOK);
+OPTLIBRARY_API extern void optarraydelim(void *, char);
 /* These functions use option number to identify which option */
-extern void optchar_n(       int, char);
-extern void optlongname_n(   int, char *);
-extern void optmode_n(       int, opt_MODE);
-extern void optdescript_n(   int, char *);
-extern void opthelp_n(       int, char *);
-extern void opthook_n(       int, OPT_HOOK);
-extern void optarraydelim_n( int, char);  
+OPTLIBRARY_API extern void optchar_n(       int, char);
+OPTLIBRARY_API extern void optlongname_n(   int, char *);
+OPTLIBRARY_API extern void optmode_n(       int, opt_MODE);
+OPTLIBRARY_API extern void optdescript_n(   int, char *);
+OPTLIBRARY_API extern void opthelp_n(       int, char *);
+OPTLIBRARY_API extern void opthook_n(       int, OPT_HOOK);
+OPTLIBRARY_API extern void optarraydelim_n( int, char);  
 
 /* The following routines are used to set features (such as usage),
  * which are not specific to single variables, but apply to the whole
@@ -169,39 +175,39 @@ extern void optarraydelim_n( int, char);
  * optlowercase() refers to functions that apply to a specific
  * registered variable.
  */
-extern void optUsage(char *);
-extern void optTitle(char *);
-extern void optProgName(char *);
-extern void optVersion(char *);
-extern void optEnvVarName(char *);
-extern void optDefaultString(char *);
-extern void optDefaultFile(char *);
-extern void optDisableMenu();
+OPTLIBRARY_API extern void optUsage(char *);
+OPTLIBRARY_API extern void optTitle(char *);
+OPTLIBRARY_API extern void optProgName(char *);
+OPTLIBRARY_API extern void optVersion(char *);
+OPTLIBRARY_API extern void optEnvVarName(char *);
+OPTLIBRARY_API extern void optDefaultString(char *);
+OPTLIBRARY_API extern void optDefaultFile(char *);
+OPTLIBRARY_API extern void optDisableMenu();
 
-extern void optAdditionalUsage(OPT_PFI);
-extern void optQuit(OPT_PFI);
-extern void optRun(OPT_PFI);
-extern void optMain(OPT_PFI_ARG);
-extern void optExitNumber(int);
+OPTLIBRARY_API extern void optAdditionalUsage(OPT_PFI);
+OPTLIBRARY_API extern void optQuit(OPT_PFI);
+OPTLIBRARY_API extern void optRun(OPT_PFI);
+OPTLIBRARY_API extern void optMain(OPT_PFI_ARG);
+OPTLIBRARY_API extern void optExitNumber(int);
 
 /* The following routines provide opt-related services that might
  * be useful after opt() has been set up and run.
  */
 /* optPrintusage() writes the opt usage message to stdout
  */
-extern void optPrintUsage();
+OPTLIBRARY_API extern void optPrintUsage();
 /* optinvoked(&var) returns the number of times the option was invoked
  * on the command line.  This function is not used in the registering
  * stage, but is used during execution of the code to see whether or
  * not a value was actually set (or if it's just using the default).
  */
-extern int  optinvoked(void *);
+OPTLIBRARY_API extern int  optinvoked(void *);
 /* opt_free() is called when you are sure you won't be using any more
  * opt functions; usually, you could call it right after opt(), but
  * after opt_free(), you won't be able to use any other opt functions,
  * such as optinvoked
  */
-extern void opt_free();
+OPTLIBRARY_API extern void opt_free();
 
   
 /* The following prototypes arguably belong in opt_p.h because it is
@@ -209,14 +215,14 @@ extern void opt_free();
  * uses opt.  Certainly, opt itself makes great use of these, behind
  * the scenes.
  */
-extern void optAbortRun(void);
-extern  int optBeginRun(OPT_PFI);
-extern void optAbortMain(void);
-extern  int optBeginMain(OPT_PFI_ARG, int, char **);
+OPTLIBRARY_API extern void optAbortRun(void);
+OPTLIBRARY_API extern  int optBeginRun(OPT_PFI);
+OPTLIBRARY_API extern void optAbortMain(void);
+OPTLIBRARY_API extern  int optBeginMain(OPT_PFI_ARG, int, char **);
 
-extern void opt_message(char *);
-extern void opt_warning(char *);
-extern void opt_fatal(char *);
+OPTLIBRARY_API extern void opt_message(char *);
+OPTLIBRARY_API extern void opt_warning(char *);
+OPTLIBRARY_API extern void opt_fatal(char *);
 
 
 
