@@ -49,15 +49,15 @@ extern "C"
 
 
 OPTLIBRARY_API typedef enum    {
-    OPT_NUL,
-    OPT_INT,        OPT_SHORT,      OPT_LONG,       OPT_CHAR,
-    OPT_UINT,       OPT_USHORT,     OPT_ULONG,      OPT_UCHAR,
-    OPT_FLOAT,      OPT_DOUBLE,
-    OPT_TOGGLE,     OPT_BOOL,
-    OPT_NEGTOGGLE,  OPT_NEGBOOL,    OPT_INTLEVEL,       
-    OPT_STRING,     
-    /* now deprecated */
-    OPT_UNDELIM, OPT_CSTRING,    OPT_UNDELIMC
+	OPT_NUL,
+	OPT_INT,        OPT_SHORT,      OPT_LONG,       OPT_CHAR,
+	OPT_UINT,       OPT_USHORT,     OPT_ULONG,      OPT_UCHAR,
+	OPT_FLOAT,      OPT_DOUBLE,
+	OPT_TOGGLE,     OPT_BOOL,
+	OPT_NEGTOGGLE,  OPT_NEGBOOL,    OPT_INTLEVEL,       
+	OPT_STRING,     
+	/* now deprecated */
+	OPT_UNDELIM, OPT_CSTRING,    OPT_UNDELIMC
 } opt_TYPE;
 
   /* define the deprecated typenames */

@@ -13,9 +13,12 @@
   <ItemGroup>
     <ClCompile Include="cJSON.c" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="TagProcessor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cJSON.h" />
+    <ClInclude Include="Repository.h" />
+    <ClInclude Include="TagProcessor.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3BDFF548-239E-461F-AEA0-BDE1D9574A43}</ProjectGuid>

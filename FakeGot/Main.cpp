@@ -1,7 +1,9 @@
-#include "cJSON.h"
-#include "opt.h"
 #include <stdlib.h>
 #include <iostream>
+#include "cJSON.h"
+#include "opt.h"
+#include "Repository.h"
+#include "TagProcessor.h"
 
 auto getConfigPath() -> char* {
 	char* documentPath;
@@ -44,7 +46,7 @@ auto getConfigData(char* documentPath) -> cJSON* {
 	
 	FILE *configFile = fopen(documentPath, "rb");
 	if (configFile == nullptr) {
-		std::cout << "Unable to open config file" << std::endl;
+		std::cout << "Unable to open configuration file" << std::endl;
 		return nullptr;
 	}
 	//Get the end of the file
@@ -63,16 +65,48 @@ auto getConfigData(char* documentPath) -> cJSON* {
 	return cJSON_Parse(configData);
 }
 
+auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) -> Repository** {
+	filteredRepoCount = 0;
+	
+	Repository** repos = nullptr;
+	cJSON* repoJSON = cJSON_GetObjectItem(root, "repos");
+	if (tagCount > 0) {
+		FilterByTags(repoJSON, filteredRepoCount, tagCount, tags);
+	}
+	else {
+		cJSON* config = cJSON_GetObjectItem(root, "configuration");
+		if (config != nullptr) {
+			cJSON* noTagSelectsAll = cJSON_GetObjectItem(config, "noTagSelectsAll");
+			if (noTagSelectsAll != nullptr || noTagSelectsAll->type == cJSON_True) {
+				repos = AllToRepos(repoJSON, filteredRepoCount);
+			}
+		}
+	}
+	return repos;
+}
+
 auto main(int argc, char* argv[]) -> int {
 	//Check the arguments
-	int test = 0;
-	optreg(&test, OPT_INT, 't', "Testing");
+	char* baseCommand = nullptr;
+	bool printCommands;
+	int tagCount = 0;
+	char **tags = nullptr;
+	optUsage("This program is a shallow clone of GitGot, which utilized perl. This is a natively compiled to help improve performance on windows boxes");
+	optTitle("FakeGot");
+	optVersion("0.3");
+	optregp(&baseCommand, OPT_STRING, "operation", "Operation to execute, for a list of operations pass in --help-commands");
+	optdescript(&baseCommand, "The command to be executed among all of the filtered repositories");
+	optrega_array(&tagCount, &tags, OPT_STRING, 't', "tags", "Array of tags to be 'ORed' together");
+	optreg(&printCommands, OPT_BOOL, '\0', "help-commands");
 	opt(&argc, &argv);
 	
-	opt_free();
-	if (test != 0) {
-		std::cout << "Hey you passed a param " << test << std::endl;
+	if (argc == 1) {
+		optPrintUsage();
+		return 0;
 	}
+
+	opt_free();
+	//Begin the process of loading the configuration file.
 	size_t size;
 	char* documentPath = getConfigPath();
 	if (documentPath == nullptr) {
@@ -84,11 +118,29 @@ auto main(int argc, char* argv[]) -> int {
 		return 1;
 	}
 	else {
+		//Free the path to the document for now we don't allow editing yet
 		free(documentPath);
 	}
-	std::cout << cJSON_Print(root);
-	free(root);
+
+	std::cout << baseCommand << " on tag count " << tagCount;
+	std::cout << "with tags:";
+	for (int i = 0; i < tagCount; i++) {
+		std::cout << " " << tags[i];
+	}
+	std::cout << std::endl;
+	int filteredRepoCount;
+	auto repos = getRepos(root, &filteredRepoCount, tagCount, tags);
+	if (repos == nullptr) {
+		std::cout << "No repositories selected";
+	}
+	cJSON_Delete(root);
 	
+	for (int i = 0; i < filteredRepoCount; i++) {
+		//Do operation specified for each repo...? or pass this on.
+		//For now print the matching repos.
+		std::cout << repos[i]->name << ": " << repos[i]->path;
+	}
+
 	char tmp[255];
 	std::cin >> tmp; 
 	return 0;

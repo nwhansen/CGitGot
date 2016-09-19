@@ -21,9 +21,18 @@
     <ClCompile Include="cJSON.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TagProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cJSON.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TagProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
