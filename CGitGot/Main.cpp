@@ -2,6 +2,7 @@
 #include <iostream>
 #include "cJSON.h"
 #include "opt.h"
+#include "git2.h"
 #include "Repository.h"
 #include "TagProcessor.h"
 #include "Operations.h"

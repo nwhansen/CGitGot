@@ -56,12 +56,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>%(SolutionDir)\libgit2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\CGitGot\libgit2\include;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\CGitGot\opt;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\CGitGot\libgit2\build\Debug;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(SolutionDir)\opt\Debug;%(SolutionDir)\libgit2\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\nhansen\Documents\Visual Studio 2013\Projects\CGitGot\opt\Debug;C:\Users\nhansen\Documents\Visual Studio 2013\Projects\CGitGot\libgit2\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>git2.lib;opt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
