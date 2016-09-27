@@ -18,6 +18,7 @@
 #include "TagProcessor.h"
 #include "Operations.h"
 #include "Configuration.h"
+#include "GotOperations.h"
 
 char* baseCommand = nullptr;
 int printOperations = 0;
@@ -27,6 +28,7 @@ int help = 0;
 int tagCount = 0;
 char **tags = nullptr;
 got::Operations operation;
+
 auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) -> Repository* {
 	*filteredRepoCount = 0;
 
@@ -36,7 +38,7 @@ auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) ->
 		return nullptr;
 	}
 	if (tagCount > 0) {
-		FilterByTags(repoJSON, filteredRepoCount, tagCount, tags);
+		repos = FilterByTags(repoJSON, filteredRepoCount, tagCount, tags);
 	}
 	else {
 		cJSON* config = cJSON_GetObjectItem(root, "configuration");
@@ -118,7 +120,7 @@ auto loadOpt() -> void {
 auto main(int argc, char* argv[]) -> int {
 	//Prepare opt
 	loadOpt();
-	//Print the descriptions if we didn't get a parameter
+	//Print the help if we didn't get an argument
 	if (argc == 1) {
 		optPrintUsage();
 		return 0;
@@ -126,7 +128,7 @@ auto main(int argc, char* argv[]) -> int {
 	//Let opt at it. Note that argc is changed by this call.
 	opt(&argc, &argv);
 
-	//Here we free opt since it uses lots of globals this will lower our overhead by a bit.
+	//Here we free opt since we are currently done with it.
 	opt_free();
 
 	auto root = GetJSONConfig(verbose);
@@ -151,11 +153,13 @@ auto main(int argc, char* argv[]) -> int {
 
 	if (verbose) {
 		for (int i = 0; i < filteredRepoCount; i++) {
-			//Do operation specified for each repo...? or pass this on.
 			//For now print the matching repos.
 			std::cout << repos[i].name << ": " << repos[i].path << std::endl;
 		}
 	}
+
+	int result = RunGot(operation, filteredRepoCount, repos);
+
 #ifdef DEBUG
 	std::cout << "Press enter to exit.";
 	std::cin.ignore();

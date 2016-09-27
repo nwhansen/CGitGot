@@ -7,7 +7,6 @@ struct Repository
 public:
 	char* name;
 	char* path;
-	char** tags;
 };
 
 
