@@ -14,9 +14,11 @@
     <ClCompile Include="cJSON.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="TagProcessor.cpp" />
+    <ClCompile Include="WinConfiguration.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cJSON.h" />
+    <ClInclude Include="Configuration.h" />
     <ClInclude Include="Operations.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="TagProcessor.h" />
