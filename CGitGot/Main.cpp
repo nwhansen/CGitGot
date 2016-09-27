@@ -76,11 +76,14 @@ auto getConfigData(char* documentPath) -> cJSON* {
 	return cJSON_Parse(configData);
 }
 
-auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) -> Repository** {
+auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) -> Repository* {
 	*filteredRepoCount = 0;
 
-	Repository** repos = nullptr;
+	Repository* repos = nullptr;
 	cJSON* repoJSON = cJSON_GetObjectItem(root, "repos");
+	if (repoJSON == nullptr) {
+		return nullptr;
+	}
 	if (tagCount > 0) {
 		FilterByTags(repoJSON, filteredRepoCount, tagCount, tags);
 	}
@@ -176,7 +179,6 @@ auto main(int argc, char* argv[]) -> int {
 	opt_free();
 
 	//Begin the process of loading the configuration file.
-	size_t size;
 	char* documentPath = getConfigPath();
 	if (documentPath == nullptr) {
 		return 1;
@@ -186,15 +188,17 @@ auto main(int argc, char* argv[]) -> int {
 	}
 	auto root = getConfigData(documentPath);
 	if (root == nullptr)  {
+		if (verbose) {
+			std::cout << "Error in (or missing) configuration data" << std::endl;
+		}
 		return 1;
 	}
 	else {
 		//Free the path to the document for now we don't allow editing yet
 		free(documentPath);
 	}
-	if (verbose){
-		std::cout << baseCommand << " on tag count " << tagCount;
-		std::cout << "with tags:";
+	if (verbose && tagCount > 0){
+		std::cout << baseCommand << " on tag count " << tagCount << " with tags:";
 		for (int i = 0; i < tagCount; i++) {
 			std::cout << " " << tags[i];
 		}
@@ -205,21 +209,20 @@ auto main(int argc, char* argv[]) -> int {
 	if (repos == nullptr) {
 		std::cout << "No repositories selected" << std::endl;
 	}
-	cJSON_Delete(root);
 
 	if (verbose) {
 		for (int i = 0; i < filteredRepoCount; i++) {
 			//Do operation specified for each repo...? or pass this on.
 			//For now print the matching repos.
-			std::cout << repos[i]->name << ": " << repos[i]->path;
+			std::cout << repos[i].name << ": " << repos[i].path << std::endl;
 		}
 	}
 #ifdef DEBUG
 	std::cout << "Press enter to exit.";
 	std::cin.ignore();
-	char destChar;
-	//std::cin.get(destChar);
 #endif
+	//We use the already allocated strings in the repo's so we reduce copying
+	cJSON_Delete(root);
 	return 0;
 }
 

@@ -10,6 +10,6 @@
 */
 Repository** FilterByTags(cJSON* repos, int* matchedRepositoryCount, int tagListSize, char** tagList);
 
-Repository** AllToRepos(cJSON* repos, int* matchedRepositoryCount);
+Repository* AllToRepos(cJSON* repos, int* matchedRepositoryCount);
 
 #endif
