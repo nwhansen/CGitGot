@@ -1,8 +1,19 @@
+/*
+* This program is free software; you can distribute it
+* and/or modify it under the terms of the GNU General Public License as
+* published by the Free Software Foundation; either version 2 of the
+* License, or any later version.  Accordingly, this program is
+* distributed in the hope that it will be useful, but WITHOUT A
+* WARRANTY; without even the implied warranty of MERCHANTABILITY or
+* FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+* for more details (http://www.gnu.org/copyleft/gpl.txt).
+*
+* Copyright Nate Hansen
+*/
 #include <stdlib.h>
 #include <iostream>
 #include "cJSON.h"
 #include "opt.h"
-#include "git2.h"
 #include "Repository.h"
 #include "TagProcessor.h"
 #include "Operations.h"
