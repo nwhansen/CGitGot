@@ -1,17 +1,16 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-namespace got {
+// These need to be extern so that we don't violate the one definition rule.
+extern char* STATUS;
+extern char* PULL;
 
-	auto STATUS = "status";
-	auto PULL = "pull";
-
-	enum Operations
-	{
-		status = 0,
-		pull = 1
-	};
-}
+enum Operations
+{
+	no_op = 0,
+	status = 1,
+	pull = 2
+};
 
 
 #endif

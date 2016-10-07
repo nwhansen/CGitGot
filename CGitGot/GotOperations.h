@@ -4,6 +4,6 @@
 #include "Operations.h"
 #include "Repository.h"
 
-auto RunGot(got::Operations operation, int filteredRepos, Repository* repos) -> int;
+auto RunGot(Operations operation, int filteredRepos, Repository* repos) -> int;
 
 #endif

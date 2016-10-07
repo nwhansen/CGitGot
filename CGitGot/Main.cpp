@@ -27,7 +27,7 @@ int verbose = 0;
 int help = 0;
 int tagCount = 0;
 char **tags = nullptr;
-got::Operations operation;
+Operations operation = no_op;
 
 auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) -> Repository* {
 	*filteredRepoCount = 0;
@@ -53,8 +53,8 @@ auto getRepos(cJSON* root, int* filteredRepoCount, int tagCount, char** tags) ->
 }
 
 auto printAllOperations(void*) -> int {
-	std::cout << got::STATUS << " -\t" << "Returns the status of all repositories that match the criteria" << std::endl;
-	std::cout << got::PULL << "   -\t" << "Pulls on all repositories that match the criteria [can specify branch to pull with --branch argument]" << std::endl;
+	std::cout << STATUS << " -\t" << "Returns the status of all repositories that match the criteria" << std::endl;
+	std::cout << PULL << "   -\t" << "Pulls on all repositories that match the criteria [can specify branch to pull with --branch argument]" << std::endl;
 	return OPT_EXIT;
 }
 
@@ -65,11 +65,11 @@ auto convertCommand(void* arg) -> int {
 		optPrintUsage();
 		return OPT_EXIT;
 	}
-	if (strcmp(got::STATUS, command) == 0) {
-		operation = got::status;
+	if (strcmp(STATUS, command) == 0) {
+		operation = status;
 	}
-	else if (strcmp(got::PULL, command) == 0) {
-		operation = got::pull;
+	else if (strcmp(PULL, command) == 0) {
+		operation = pull;
 	}
 	else {
 		std::cout << "Unrecognized Command" << std::endl;
@@ -128,8 +128,14 @@ auto main(int argc, char* argv[]) -> int {
 	//Let opt at it. Note that argc is changed by this call.
 	opt(&argc, &argv);
 
+	if (operation == no_op) {
+		//We didn't get an operation
+		optPrintUsage();
+		return 0;
+	}
 	//Here we free opt since we are currently done with it.
 	opt_free();
+
 
 	auto root = GetJSONConfig(verbose);
 	if (root == nullptr)  {
